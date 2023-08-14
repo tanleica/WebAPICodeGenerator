@@ -104,31 +104,34 @@ namespace WebAPICodeGenerator
         {
             StringBuilder sb = new();
 
-            sb.AppendLine("using Common.Extensions;");
             sb.AppendLine("using CORE.GenericUOW;");
             sb.AppendLine("using CORE.DTO;");
-            sb.AppendLine("using API.DbContexts;");
             sb.AppendLine("using API.DTO;");
             sb.AppendLine("using CORE.Enum;");
             sb.AppendLine("using CORE.StaticConstant;");
+            sb.AppendLine("using API.All.DbContexts;");
+            sb.AppendLine("using CORE.AutoMapper;");
+            sb.AppendLine("");
             sb.AppendLine(string.Format("namespace API.Controllers.{0}", PascalName));
             sb.AppendLine("{");
             sb.AppendLine(string.Format("    public class {0}Repository : I{0}Repository", PascalName));
             sb.AppendLine("    {");
-            sb.AppendLine("        private readonly FullDbContext _fullDbContext;");
+            sb.AppendLine("        private readonly GenericUnitOfWork _uow;");
+            sb.AppendLine("        private readonly FullDbContext _dbContext;");
             sb.AppendLine(string.Format("        private IGenericRepository<{0}, {1}DTO> _genericRepository;", SNAKE_NAME, PascalName));
             sb.AppendLine(string.Format("        private readonly GenericReducer<{0}, {1}DTO> _genericReducer;", SNAKE_NAME, PascalName));
             sb.AppendLine("");
             sb.AppendLine(string.Format("        public {0}Repository(FullDbContext context, GenericUnitOfWork _uow)", PascalName));
             sb.AppendLine("        {");
-            sb.AppendLine("            _fullDbContext = context;");
+            sb.AppendLine("            _dbContext = context;");
+            sb.AppendLine("            _uow = uow;");
             sb.AppendLine(string.Format("            _genericRepository = _uow.GenericRepository<{0}, {1}DTO>();", SNAKE_NAME, PascalName));
             sb.AppendLine("            _genericReducer = new();");
             sb.AppendLine("        }");
             sb.AppendLine("");
             sb.AppendLine(string.Format("        public async Task<GenericPhaseTwoListResponse<{0}DTO>> SinglePhaseQueryList(GenericQueryListDTO<{0}DTO> request)", PascalName));
             sb.AppendLine("        {");
-            sb.AppendLine(string.Format("            var joined = from p in _fullDbContext.{0}s.AsNoTracking()", PascalName));
+            sb.AppendLine(string.Format("            var joined = from p in _dbContext.{0}s.AsNoTracking()", PascalName));
             sb.AppendLine("                         // JOIN OTHER ENTITIES BASED ON THE BUSINESS");
             sb.AppendLine(string.Format("                         select new {0}DTO", PascalName));
             sb.AppendLine("                         {");
@@ -365,7 +368,7 @@ namespace WebAPICodeGenerator
 
             sb.AppendLine("using Microsoft.Extensions.Options;");
             sb.AppendLine("");
-            sb.AppendLine("namespace API.DbContexts");
+            sb.AppendLine("namespace API.All.DbContexts");
             sb.AppendLine("{");
             sb.AppendLine("    public class FullDbContext : DbContextBase {");
             sb.AppendLine("");

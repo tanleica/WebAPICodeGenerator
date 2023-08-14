@@ -470,19 +470,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Tanleica\\.nuget\\packages\\": {}
+    "C:\\Users\\tvc\\.nuget\\packages\\": {},
+    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\WebAPICodeGenerator\\WebAPICodeGenerator.csproj",
+      "projectUniqueName": "D:\\WebAPICodeGenerator\\WebAPICodeGenerator.csproj",
       "projectName": "WebAPICodeGenerator",
-      "projectPath": "E:\\WebAPICodeGenerator\\WebAPICodeGenerator.csproj",
-      "packagesPath": "C:\\Users\\Tanleica\\.nuget\\packages\\",
-      "outputPath": "E:\\WebAPICodeGenerator\\obj\\",
+      "projectPath": "D:\\WebAPICodeGenerator\\WebAPICodeGenerator.csproj",
+      "packagesPath": "C:\\Users\\tvc\\.nuget\\packages\\",
+      "outputPath": "D:\\WebAPICodeGenerator\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+      ],
       "configFilePaths": [
-        "C:\\Users\\Tanleica\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\tvc\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
