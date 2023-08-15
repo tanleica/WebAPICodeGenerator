@@ -61,7 +61,7 @@ namespace WebAPICodeGenerator
 
             if (myPath == "") return;
 
-            using SqlConnection connection = new (
+            using SqlConnection connection = new(
                        "Password=tvcapi;User ID=tvc;Initial Catalog=HISTAFF_SQL;Data Source=210.245.8.67,10344;TrustServerCertificate=True");
 
             SqlCommand command = new(
@@ -129,7 +129,7 @@ namespace WebAPICodeGenerator
                     {
                         moduleName = "INSURANCE";
                     }
-                    else 
+                    else
                     {
                         moduleName = "OTHER";
                     }

@@ -121,7 +121,7 @@ namespace WebAPICodeGenerator
             sb.AppendLine(string.Format("        private IGenericRepository<{0}, {1}DTO> _genericRepository;", SNAKE_NAME, PascalName));
             sb.AppendLine(string.Format("        private readonly GenericReducer<{0}, {1}DTO> _genericReducer;", SNAKE_NAME, PascalName));
             sb.AppendLine("");
-            sb.AppendLine(string.Format("        public {0}Repository(FullDbContext context, GenericUnitOfWork _uow)", PascalName));
+            sb.AppendLine(string.Format("        public {0}Repository(FullDbContext context, GenericUnitOfWork uow)", PascalName));
             sb.AppendLine("        {");
             sb.AppendLine("            _dbContext = context;");
             sb.AppendLine("            _uow = uow;");
@@ -197,9 +197,23 @@ namespace WebAPICodeGenerator
             sb.AppendLine("            return response;");
             sb.AppendLine("        }");
             sb.AppendLine("");
-            sb.AppendLine(string.Format("        public async Task<FormatedResponse> Update(GenericUnitOfWork _uow, {0}DTO dto, string sid, bool? patchMode = true)", PascalName));
+            sb.AppendLine(string.Format("        public async Task<FormatedResponse> CreateRange(GenericUnitOfWork _uow, List<{0}DTO> dtos, string sid)", PascalName));
+            sb.AppendLine("        {");
+            sb.AppendLine(string.Format("            var add = new List<{0}DTO>();", PascalName));
+            sb.AppendLine("            add.AddRange(dtos);");
+            sb.AppendLine("            var response = await _genericRepository.CreateRange(_uow, add, sid);");
+            sb.AppendLine("            return response;");
+            sb.AppendLine("        }");
+            sb.AppendLine("");
+            sb.AppendLine(string.Format("        public async Task<FormatedResponse> Update(GenericUnitOfWork _uow, {0}DTO dto, string sid, bool patchMode = true)", PascalName));
             sb.AppendLine("        {");
             sb.AppendLine("            var response = await _genericRepository.Update(_uow, dto, sid, patchMode);");
+            sb.AppendLine("            return response;");
+            sb.AppendLine("        }");
+            sb.AppendLine("");
+            sb.AppendLine(string.Format("        public async Task<FormatedResponse> UpdateRange(GenericUnitOfWork _uow, List<{0}DTO> dtos, string sid, bool patchMode = true)", PascalName));
+            sb.AppendLine("        {");
+            sb.AppendLine("            var response = await _genericRepository.UpdateRange(_uow, dtos, sid, patchMode);");
             sb.AppendLine("            return response;");
             sb.AppendLine("        }");
             sb.AppendLine("");
@@ -237,7 +251,7 @@ namespace WebAPICodeGenerator
         {
             StringBuilder sb = new();
 
-            sb.AppendLine("using API.DbContexts;");
+            sb.AppendLine("using API.All.DbContexts;");
             sb.AppendLine("using API.DTO;");
             sb.AppendLine("using API.Main;");
             sb.AppendLine("using CORE.DTO;");
@@ -318,6 +332,14 @@ namespace WebAPICodeGenerator
             sb.AppendLine(string.Format("            var response = await _{0}Repository.Create(_uow, model, sid);", PascalName));
             sb.AppendLine("            return Ok(response);");
             sb.AppendLine("        }");
+            sb.AppendLine("        [HttpPost]");
+            sb.AppendLine(string.Format("        public async Task<IActionResult> CreateRange(List<{0}DTO> models)", PascalName));
+            sb.AppendLine("        {");
+            sb.AppendLine("            var sid = Request.Sid(_appSettings);");
+            sb.AppendLine("            if (sid == null) return Unauthorized();");
+            sb.AppendLine(string.Format("            var response = await _{0}Repository.CreateRange(_uow, models, sid);", PascalName));
+            sb.AppendLine("            return Ok(response);");
+            sb.AppendLine("        }");
             sb.AppendLine("");
             sb.AppendLine("        [HttpPost]");
             sb.AppendLine(string.Format("        public async Task<IActionResult> Update({0}DTO model)", PascalName));
@@ -325,6 +347,15 @@ namespace WebAPICodeGenerator
             sb.AppendLine("            var sid = Request.Sid(_appSettings);");
             sb.AppendLine("            if (sid == null) return Unauthorized();");
             sb.AppendLine(string.Format("            var response = await _{0}Repository.Update(_uow, model, sid);", PascalName));
+            sb.AppendLine("            return Ok(response);");
+            sb.AppendLine("        }");
+            sb.AppendLine("");
+            sb.AppendLine("        [HttpPost]");
+            sb.AppendLine(string.Format("        public async Task<IActionResult> UpdateRange(List<{0}DTO> models)", PascalName));
+            sb.AppendLine("        {");
+            sb.AppendLine("            var sid = Request.Sid(_appSettings);");
+            sb.AppendLine("            if (sid == null) return Unauthorized();");
+            sb.AppendLine(string.Format("            var response = await _{0}Repository.UpdateRange(_uow, models, sid);", PascalName));
             sb.AppendLine("            return Ok(response);");
             sb.AppendLine("        }");
             sb.AppendLine("");
