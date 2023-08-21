@@ -8,7 +8,7 @@ namespace WebAPICodeGenerator
         List<string> mylist =
                 new(new string[] { "AD_", "AT_", "CSS_", "HRM_", "HU_",
                     "INS_", "PA_", "PT_", "RC_", "RPT_", "SE_", "SY_",
-                    "SYS_", "THEME_", "TMP_" });
+                    "SYS_", "THEME_", "TMP_", "TR_" });
         List<string> SYSTEM_list =
                 new(new string[] { "AD_", "CSS_", "HRM_",
                     "SE_", "SY_",
@@ -24,6 +24,9 @@ namespace WebAPICodeGenerator
 
         List<string> INS_list =
         new(new string[] { "INS_" });
+
+        List<string> TR_list =
+        new(new string[] { "TR_" });
 
         List<string> ignoredlist =
                 new(new string[] {
@@ -128,6 +131,10 @@ namespace WebAPICodeGenerator
                     else if (INS_list.IndexOf(prefix) == 0)
                     {
                         moduleName = "INSURANCE";
+                    }
+                    else if (TR_list.IndexOf(prefix) == 0)
+                    {
+                        moduleName = "TRAINING";
                     }
                     else
                     {
