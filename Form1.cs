@@ -8,7 +8,7 @@ namespace WebAPICodeGenerator
         List<string> mylist =
                 new(new string[] { "AD_", "AT_", "CSS_", "HRM_", "HU_",
                     "INS_", "PA_", "PT_", "RC_", "RPT_", "SE_", "SY_",
-                    "SYS_", "THEME_", "TMP_", "TR_" });
+                    "SYS_", "THEME_", "TMP_", "TR_", "DEMO_" });
         List<string> SYSTEM_list =
                 new(new string[] { "AD_", "CSS_", "HRM_",
                     "SE_", "SY_",
