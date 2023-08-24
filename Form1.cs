@@ -1,5 +1,6 @@
 using System.Data;
 using System.Data.SqlClient;
+using System.Text;
 
 namespace WebAPICodeGenerator
 {
@@ -209,6 +210,54 @@ namespace WebAPICodeGenerator
             Helper.GenerateFullDbContext(myPath, filter);
 
             MessageBox.Show("Done!", "Happy Coding!");
+        }
+
+        private void btn__ENTITY_CLASS__to__PascalCaseDTO_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog openFileDialog = new();
+            //openFileDialog.Filter = "C# files (*.cs)";
+            openFileDialog.FilterIndex = 0;
+            openFileDialog.RestoreDirectory = true;
+
+            StringBuilder stringBuilder = new();
+
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                //Get the path of specified file
+                var filePath = openFileDialog.FileName;
+
+                if (filePath != null)
+                {
+                    //Read the contents of the file into a stream
+                    var lines = File.ReadLines(filePath);
+                    string newLine = "";
+                    foreach (var line in lines)
+                    {
+                        newLine = line;
+                        if (line.StartsWith("    public "))
+                        {
+                            var arr = line.Split(' ');
+                            var name = arr[6].SnakeToCamelCase().CamelToPascalCase();
+
+                            newLine = line.Replace(arr[6], name);
+                            newLine = newLine.Replace(arr[5] + " " + arr[6], arr[5] + "? " + arr[6]);
+
+
+                        }
+                        stringBuilder.AppendLine(newLine);
+                    }
+
+                    string result = stringBuilder.ToString();
+
+                    string directoryPath = Path.GetDirectoryName(filePath);
+
+                    using (StreamWriter file = new(string.Format("{0}", directoryPath, Path.GetFileNameWithoutExtension(filePath) + "_dto.cs")))
+                    {
+                        file.WriteLine(stringBuilder.ToString());
+                    }
+                }
+            }
+
         }
     }
 
