@@ -9,7 +9,7 @@ namespace WebAPICodeGenerator
         List<string> mylist =
                 new(new string[] { "AD_", "AT_", "CSS_", "HRM_", "HU_",
                     "INS_", "PA_", "PT_", "RC_", "RPT_", "SE_", "SY_",
-                    "SYS_", "THEME_", "TMP_", "TR_", "DEMO_" });
+                    "SYS_", "THEME_", "TMP_", "TR_", "DEMO_", "PORTAL_" });
         List<string> SYSTEM_list =
                 new(new string[] { "AD_", "CSS_", "HRM_",
                     "SE_", "SY_",
@@ -66,7 +66,7 @@ namespace WebAPICodeGenerator
             if (myPath == "") return;
 
             using SqlConnection connection = new(
-                       "Password=tvcapi;User ID=tvc;Initial Catalog=HISTAFF_SQL;Data Source=210.245.8.67,10344;TrustServerCertificate=True");
+                       "Password=Tinhvan@2023;User ID=sa;Initial Catalog=HISTAFF_SQL_DEV;Data Source=192.168.60.26,1433;TrustServerCertificate=True");
 
             SqlCommand command = new(
                 @"SELECT TableName = name 
@@ -185,12 +185,12 @@ namespace WebAPICodeGenerator
             if (myPath == "") return;
 
             using SqlConnection connection = new SqlConnection(
-                       "Password=tvcapi;User ID=tvc;Initial Catalog=HISTAFF_SQL;Data Source=210.245.8.67,10344;TrustServerCertificate=True");
+                       "Password=Tinhvan@2023;User ID=sa;Initial Catalog=HISTAFF_SQL_DEV;Data Source=192.168.60.26,1433;TrustServerCertificate=True");
 
             List<string> mylist =
                 new(new string[] { "AD_", "AT_", "CSS_", "HRM_", "HU_",
                     "INS_", "PA_", "PT_", "RC_", "RPT_", "SE_", "SY_",
-                    "SYS_", "THEME_", "TMP_" });
+                    "SYS_", "THEME_", "TMP_", "PORTAL_" });
 
             SqlCommand command = new(
                 @"SELECT TableName = name 
